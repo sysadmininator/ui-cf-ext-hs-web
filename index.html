@@ -22,7 +22,7 @@
         const client_mac = document.getElementById('client_mac').value;
         const ap_mac = document.getElementById('ap_mac').value;
 
-        const response = await fetch('https://your-worker.yourdomain.workers.dev/verify', {
+        const response = await fetch('https://ui-cf-ext-hs-worker.sysadmininator.com/verify', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ name, email, receipt, client_mac, ap_mac })
