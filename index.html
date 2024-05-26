@@ -1,0 +1,34 @@
+<!-- index.html -->
+<form id="loginForm">
+    <input type="text" id="name" placeholder="Enter your name" required>
+    <input type="email" id="email" placeholder="Enter your email" required>
+    <input type="text" id="receipt" placeholder="Enter receipt number" required>
+    <input type="hidden" id="client_mac" name="client_mac">
+    <input type="hidden" id="ap_mac" name="ap_mac">
+    <button type="submit">Login</button>
+</form>
+<script>
+    window.onload = function() {
+        const urlParams = new URLSearchParams(window.location.search);
+        document.getElementById('client_mac').value = urlParams.get('id');
+        document.getElementById('ap_mac').value = urlParams.get('ap');
+    };
+
+    document.getElementById('loginForm').onsubmit = async function(event) {
+        event.preventDefault();
+        const name = document.getElementById('name').value;
+        const email = document.getElementById('email').value;
+        const receipt = document.getElementById('receipt').value;
+        const client_mac = document.getElementById('client_mac').value;
+        const ap_mac = document.getElementById('ap_mac').value;
+
+        const response = await fetch('https://your-worker.yourdomain.workers.dev/verify', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ name, email, receipt, client_mac, ap_mac })
+        });
+
+        const data = await response.json();
+        alert(data.message);  // Simple alert; replace with better handling
+    };
+</script>
